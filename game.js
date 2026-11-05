@@ -1222,16 +1222,10 @@ function saveRanking() {
     }
 }
 
+
 function renderRanking() {
-    const ranking = readRanking();
-    const list = $('#ranking-list');
-
-    list.innerHTML = '';
-
-    hide($('#ranking-loading'));
-
     $('#ranking-total-score').textContent =
-        String(totalScore);
+        totalScore;
 
     $('#ranking-levels-completed').textContent =
         `${completedLevels.length} / 3`;
@@ -1241,32 +1235,10 @@ function renderRanking() {
 
     $('#ranking-player-message').textContent =
         `Congratulations, ${playerName}! You are an Eco Hero.`;
-
-    if (ranking.length === 0) {
-        show($('#ranking-empty'));
-        return;
-    }
-
-    hide($('#ranking-empty'));
-
-    ranking.slice(0, 10).forEach((entry, index) => {
-        const item = document.createElement('li');
-
-        const name = document.createElement('span');
-        name.textContent = `${index + 1}. ${entry.name}`;
-
-        const score = document.createElement('span');
-        score.className = 'rank-score';
-        score.textContent = `${entry.score} pts`;
-
-        item.append(name, score);
-
-        list.appendChild(item);
-    });
 }
 
 function showFinalRanking() {
-    saveRanking();
+    stopTimer();
 
     hide(gameScreen);
     hide(homeScreen);
